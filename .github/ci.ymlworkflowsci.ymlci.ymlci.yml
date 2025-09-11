@@ -1,0 +1,82 @@
+# CI Workflow for Circuittelligence Doctrine Template
+# This workflow enforces code quality, testing, and security standards as per doctrine requirements
+# TODO: Replace placeholder commands with project-specific lint/test commands
+name: Continuous Integration
+
+# Trigger on push and pull request events
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+# Environment variables
+env:
+  NODE_VERSION: '18'
+
+jobs:
+  
+  # Secret scanning job to detect hardcoded secrets
+  secret-scan:
+    name: Secret Scanning
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Fetch all history for secret scanning
+          
+      # TODO: Configure Gitleaks rules file (.gitleaks.toml) for project-specific patterns
+      # TODO: Consider whitelisting false positives through Gitleaks baseline
+      - name: Run Gitleaks secret detection
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          
+        # Fail pipeline if secrets are detected
+
+  # Auto-assign reviewers and assignees to pull requests
+  auto_assign_reviewers:
+    name: Auto Assign Reviewers
+    runs-on: ubuntu-latest
+    # Only run on pull request events, not pushes
+    if: github.event_name == 'pull_request'
+    
+    steps:
+      - name: Auto assign reviewers and assignees
+        uses: kentaro-m/auto-assign-action@v1.2.6
+        with:
+          configuration-path: '.github/auto_assign.yml'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          
+      # Configuration for auto-assign is stored in .github/auto_assign.yml
+      # To customize reviewers, edit the auto_assign.yml file with your team members:
+      #
+      # addReviewers: true
+      # addAssignees: true
+      # reviewers:
+      #   - 'tech-lead-username'      # Replace with Tech Lead GitHub username
+      #   - 'security-officer-username' # Replace with Security Officer GitHub username  
+      #   - 'qa-lead-username'        # Replace with QA Lead GitHub username
+      #   - 'product-owner-username'  # Replace with Product Owner GitHub username
+      # assignees:
+      #   - 'tech-lead-username'      # Replace with Tech Lead GitHub username
+      #   - 'security-officer-username' # Replace with Security Officer GitHub username
+      #   - 'qa-lead-username'        # Replace with QA Lead GitHub username
+      #   - 'product-owner-username'  # Replace with Product Owner GitHub username
+      #
+      # You can also configure team-based assignments:
+      # reviewers:
+      #   - '@circuittelligence/tech-leads'
+      #   - '@circuittelligence/security-team'
+      #   - '@circuittelligence/qa-team'
+      #   - '@circuittelligence/product-team'
+      #
+      # Additional options:
+      # numberOfReviewers: 2        # Number of reviewers to assign (default: all)
+      # numberOfAssignees: 1        # Number of assignees to assign (default: all)
+      # skipKeywords:               # Skip assignment if PR contains these keywords
+      #   - 'wip'
+      #   - 'draft'
