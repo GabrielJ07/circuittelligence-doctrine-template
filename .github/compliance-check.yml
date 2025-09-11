@@ -1,0 +1,236 @@
+# PR Compliance Checklist Configuration
+# This file defines the required checklist items for PR compliance checker
+
+name: "Doctrine Compliance Checklist"
+description: "Circuittelligence Doctrine Template PR Compliance Requirements"
+
+# Required checklist items based on doctrine requirements
+checklistItems:
+  # Architecture & Design Section
+  - id: "architecture_review"
+    title: "Architecture & Design Review"
+    description: "Verify architecture decisions align with system design principles"
+    required: true
+    category: "architecture"
+    
+  - id: "design_patterns"
+    title: "Design Patterns Compliance"
+    description: "Ensure proper design patterns are implemented according to doctrine"
+    required: true
+    category: "architecture"
+    
+  - id: "system_integration"
+    title: "System Integration Review"
+    description: "Validate integration points and interfaces"
+    required: true
+    category: "architecture"
+
+  # Security & Privacy Section
+  - id: "security_review"
+    title: "Security Review Completed"
+    description: "Security assessment performed for all changes"
+    required: true
+    category: "security"
+    
+  - id: "privacy_compliance"
+    title: "Privacy Compliance Check"
+    description: "Data privacy requirements verified and implemented"
+    required: true
+    category: "security"
+    
+  - id: "vulnerability_scan"
+    title: "Vulnerability Scanning"
+    description: "Static analysis and dependency vulnerability checks passed"
+    required: true
+    category: "security"
+    
+  - id: "access_controls"
+    title: "Access Controls Verification"
+    description: "Authentication and authorization mechanisms validated"
+    required: true
+    category: "security"
+
+  # Development Section
+  - id: "code_quality"
+    title: "Code Quality Standards"
+    description: "Code meets established quality standards and style guidelines"
+    required: true
+    category: "development"
+    
+  - id: "unit_tests"
+    title: "Unit Tests Coverage"
+    description: "Adequate unit test coverage (minimum 80%) achieved"
+    required: true
+    category: "development"
+    
+  - id: "integration_tests"
+    title: "Integration Tests"
+    description: "Integration tests implemented and passing"
+    required: true
+    category: "development"
+    
+  - id: "performance_impact"
+    title: "Performance Impact Assessment"
+    description: "Performance implications evaluated and documented"
+    required: true
+    category: "development"
+    
+  - id: "error_handling"
+    title: "Error Handling Implementation"
+    description: "Proper error handling and logging mechanisms in place"
+    required: true
+    category: "development"
+
+  # Documentation Section
+  - id: "api_documentation"
+    title: "API Documentation Updated"
+    description: "API changes documented with examples and specifications"
+    required: true
+    category: "documentation"
+    
+  - id: "user_documentation"
+    title: "User Documentation"
+    description: "User-facing documentation updated for any interface changes"
+    required: true
+    category: "documentation"
+    
+  - id: "technical_documentation"
+    title: "Technical Documentation"
+    description: "Technical specifications and architecture docs updated"
+    required: true
+    category: "documentation"
+    
+  - id: "changelog_updated"
+    title: "Changelog Updated"
+    description: "Changes documented in project changelog"
+    required: true
+    category: "documentation"
+
+  # Reviewer Sign-offs Section
+  - id: "code_review_approval"
+    title: "Code Review Approval"
+    description: "At least 2 senior developers have approved the changes"
+    required: true
+    category: "review"
+    
+  - id: "architecture_approval"
+    title: "Architecture Team Approval"
+    description: "Architecture team has reviewed and approved design changes"
+    required: false # Only required for architectural changes
+    category: "review"
+    conditions:
+      - hasLabel: "architecture-change"
+    
+  - id: "security_team_approval"
+    title: "Security Team Approval"
+    description: "Security team has reviewed and approved security-related changes"
+    required: false # Only required for security changes
+    category: "review"
+    conditions:
+      - hasLabel: "security-change"
+    
+  - id: "product_owner_approval"
+    title: "Product Owner Approval"
+    description: "Product owner has approved user-facing changes"
+    required: false # Only required for user-facing changes
+    category: "review"
+    conditions:
+      - hasLabel: "user-facing"
+
+  # Security & Compliance Review Section
+  - id: "compliance_check"
+    title: "Regulatory Compliance Check"
+    description: "Changes comply with relevant regulations (GDPR, SOX, etc.)"
+    required: true
+    category: "compliance"
+    
+  - id: "data_governance"
+    title: "Data Governance Compliance"
+    description: "Data handling follows established governance policies"
+    required: true
+    category: "compliance"
+    
+  - id: "audit_trail"
+    title: "Audit Trail Verification"
+    description: "Proper audit logging implemented for compliance tracking"
+    required: true
+    category: "compliance"
+    
+  - id: "license_compliance"
+    title: "License Compliance Check"
+    description: "New dependencies and code comply with licensing requirements"
+    required: true
+    category: "compliance"
+
+  # Additional Quality Gates
+  - id: "breaking_changes"
+    title: "Breaking Changes Documentation"
+    description: "Any breaking changes clearly documented with migration guide"
+    required: false # Only required if breaking changes present
+    category: "quality"
+    conditions:
+      - hasLabel: "breaking-change"
+    
+  - id: "backward_compatibility"
+    title: "Backward Compatibility Verification"
+    description: "Changes maintain backward compatibility where required"
+    required: true
+    category: "quality"
+    
+  - id: "deployment_readiness"
+    title: "Deployment Readiness Check"
+    description: "Deployment scripts, migrations, and rollback procedures ready"
+    required: true
+    category: "quality"
+
+# Configuration for pr-compliance-checker action
+config:
+  # Fail PR if required items are not checked
+  strictMode: true
+  
+  # Allow override by maintainers
+  allowOverride: true
+  overrideRoles:
+    - "maintainer"
+    - "admin"
+  
+  # Custom messages
+  messages:
+    incomplete: "🚫 PR Compliance: Required checklist items must be completed before merge"
+    success: "✅ PR Compliance: All required checklist items completed"
+    override: "⚠️ PR Compliance: Override applied by maintainer"
+  
+  # Integration settings
+  integration:
+    # Block merge until compliance is met
+    blockMerge: true
+    
+    # Create GitHub status check
+    createStatusCheck: true
+    statusCheckName: "doctrine-compliance"
+    
+    # Comment on PR with checklist
+    addComment: true
+    updateComment: true
+    
+    # Label management
+    labels:
+      compliant: "compliance-passed"
+      nonCompliant: "compliance-required"
+      overridden: "compliance-overridden"
+
+# Exemptions (files/paths that don't require full compliance)
+exemptions:
+  paths:
+    - "docs/**"
+    - "*.md"
+    - ".github/**"
+    - "scripts/development/**"
+  
+  # Skip compliance for certain PR types
+  prTypes:
+    - "documentation"
+    - "hotfix" # Emergency fixes with reduced requirements
+  
+  # Emergency override keyword in PR description
+  emergencyKeyword: "EMERGENCY_OVERRIDE"
