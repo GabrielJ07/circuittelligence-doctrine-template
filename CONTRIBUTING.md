@@ -1,252 +1,240 @@
 # Contributing to Circuittelligence Doctrine Projects
 
-Welcome to the Circuittelligence ecosystem! This guide outlines our contribution process, standards, and expectations. Following these guidelines ensures code quality, team collaboration, and project sustainability.
+## Introduction
 
-## 🔬 Circuittelligence Contribution Philosophy
+Welcome to the Circuittelligence ecosystem! All contributions to this project must align with the **Circuittelligence doctrine**. This doctrine embodies our core principles of Intelligence-First decision making, Circuit Reliability through robust processes, and Collaborative Excellence in all interactions.
 
-Our doctrine emphasizes **Intelligence-First** decision making, **Circuit Reliability** through robust processes, and **Collaborative Excellence** in all interactions. Every contribution should embody these principles.
+For complete understanding of our organizational philosophy, values, and standards, please review the [Circuittelligence Doctrine](docs/doctrine.md) before contributing.
 
-## 🔄 Contribution Process Overview
+## Contribution/Intake Process Overview
 
-The Circuittelligence contribution process follows a structured workflow: **Intake → Triage → Build → Review → Deploy**
+The Circuittelligence contribution process follows a structured workflow with the following required steps:
 
-### 1. 📥 **Intake Phase**
+### 1. Requirements Gathering
+- **Issue Creation Required**: All contributions must start with a well-documented issue using our [issue templates](.github/ISSUE_TEMPLATE)
+- **Stakeholder Input**: Gather requirements from relevant stakeholders and document them clearly
+- **Scope Definition**: Clearly define the boundaries and expected outcomes of the contribution
+- **Doctrine Alignment**: Verify the contribution aligns with Intelligence-First principles
 
-#### Before You Start
-- [ ] **Review Documentation**: Study project README, architecture docs, and existing issues
-- [ ] **Check for Duplicates**: Search existing issues and pull requests to avoid duplication
-- [ ] **Understand Scope**: Ensure your contribution aligns with project goals and doctrine
-- [ ] **Discuss Major Changes**: Open an issue for significant features or architectural changes
+### 2. Triage
+- Maintainers evaluate issues using doctrine-aligned criteria:
+  - **Intelligence Assessment**: Evidence-based problem validation
+  - **Circuit Impact**: Effect on system reliability and maintainability
+  - **Resource Allocation**: Priority based on business value and technical debt
+  - **Complexity Analysis**: Work breakdown into manageable chunks
+- Labels applied: `priority/[level]`, `type/[category]`, `complexity/[level]`, `doctrine/[status]`
 
-#### Issue Creation (Required for all contributions)
-```
-# Use our issue templates for:
-- Bug reports
-- Feature requests
-- Documentation improvements
-- Performance optimizations
-```
+### 3. Assigned Lead
+- Each approved issue will be assigned to a lead contributor
+- Lead responsibilities include:
+  - Technical implementation planning
+  - Coordinating with stakeholders
+  - Ensuring quality standards compliance
+  - Managing the review process
 
-### 2. 🔍 **Triage Phase**
+### 4. Stakeholder Alignment
+- Regular check-ins with stakeholders during development
+- Documentation of any requirement changes
+- Validation of deliverables against original requirements
+- Sign-off from relevant stakeholders before merge
 
-Maintainers will triage your issue using doctrine-aligned criteria:
+## Coding Standards
 
-- **Intelligence Assessment**: Does this solve a real problem backed by data/evidence?
-- **Circuit Impact**: How does this affect system reliability and maintainability?
-- **Resource Allocation**: Priority based on business value and technical debt impact
-- **Complexity Analysis**: Breaking down work into manageable, reviewable chunks
+### Commit Message Format
+Use conventional commits format following our doctrine standards:
 
-**Labels Applied:**
-- `priority/[critical|high|medium|low]`
-- `type/[bug|feature|docs|refactor]` 
-- `complexity/[simple|moderate|complex]`
-- `doctrine/[approved|needs-discussion|rejected]`
-
-### 3. 🏗️ **Build Phase**
-
-#### Development Environment Setup
-```bash
-# Fork and clone the repository
-git clone https://github.com/yourusername/project-name.git
-cd project-name
-
-# Create feature branch following naming convention
-git checkout -b feat/your-feature-name
-# or
-git checkout -b fix/bug-description
-# or
-git checkout -b docs/documentation-improvement
-```
-
-#### Code Standards & Guidelines
-
-**File Organization:**
-- Follow the established directory structure
-- Place files in appropriate modules/directories
-- Use consistent naming conventions
-
-**Code Quality Requirements:**
-- **Lint Compliance**: All code must pass linting (ESLint, Prettier, etc.)
-- **Type Safety**: Use TypeScript where applicable, maintain type definitions
-- **Testing**: New features require corresponding tests (unit, integration, e2e)
-- **Documentation**: Update relevant docs, add JSDoc comments for functions
-- **Security**: Follow secure coding practices, validate inputs
-
-**Commit Message Standards:**
-Use conventional commits format:
 ```
 type(scope): description
 
-feat(auth): add OAuth2 integration
-fix(api): resolve timeout issues in data fetching
-docs(readme): update installation instructions
-test(utils): add edge case tests for validation
-refactor(components): improve performance of data grid
+Optional body explaining the change in detail
+Including doctrine principle alignment
+
+Optional footer with issue references
 ```
 
-**Code Review Checklist (Self-Review First):**
-- [ ] Code follows project style guide
-- [ ] No commented-out code or TODO items
-- [ ] Error handling implemented properly
-- [ ] Performance implications considered
-- [ ] Backward compatibility maintained
-- [ ] Security vulnerabilities addressed
+**Examples:**
+```
+feat(auth): add OAuth2 integration with circuit reliability checks
+fix(api): resolve timeout issues affecting system intelligence
+docs(readme): update installation instructions per doctrine standards
+test(utils): add edge case tests for validation reliability
+refactor(components): improve performance following intelligence-first principles
+```
 
-### 4. 👥 **Review Phase**
+**Required commit types:**
+- `feat`: New features
+- `fix`: Bug fixes  
+- `docs`: Documentation changes
+- `test`: Test additions/modifications
+- `refactor`: Code refactoring
+- `perf`: Performance improvements
+- `chore`: Maintenance tasks
 
-#### Pull Request Guidelines
+### Code Style Requirements
+- **Lint Compliance**: All code must pass configured linters (ESLint, Prettier, etc.)
+- **Type Safety**: Use TypeScript where applicable, maintain type definitions
+- **Naming Conventions**: Follow established project patterns
+- **File Organization**: Adhere to the enforced directory structure
+- **Error Handling**: Implement comprehensive error handling following circuit reliability principles
+- **Security**: Follow secure coding practices, validate all inputs
 
-**PR Title Format:** `type(scope): brief description`
+### Documentation Requirements
+- **Code Documentation**: JSDoc comments for all public functions and complex logic
+- **README Updates**: Update relevant documentation for new features
+- **Architecture Decisions**: Document significant design decisions in ADR format
+- **API Documentation**: Maintain up-to-date API documentation
+- **Doctrine Alignment**: Explain how changes align with doctrine principles
 
-**Required PR Elements:**
-- [ ] **Clear Description**: What changes were made and why
-- [ ] **Issue Reference**: Links to related issues (`Fixes #123`)
-- [ ] **Testing Evidence**: Screenshots, test results, or deployment previews
-- [ ] **Breaking Changes**: Document any breaking changes with migration guide
-- [ ] **Checklist Completion**: All template checkboxes completed
+## Pull Request Workflow
 
-#### Review Process & Expectations
+### Required Checklists
+All pull requests must complete the following checklists as per our doctrine:
 
-**Automated Checks (Must Pass):**
+#### Pre-Submission Checklist
+- [ ] Issue created and linked to PR
+- [ ] Code follows style guide and conventions
+- [ ] All tests pass locally
+- [ ] Documentation updated
+- [ ] Self-review completed
+- [ ] Stakeholder requirements verified
+- [ ] Doctrine alignment confirmed
+
+#### PR Template Requirements
+- [ ] Clear description of changes and rationale
+- [ ] Issue reference (Fixes #123)
+- [ ] Testing evidence (screenshots, test results)
+- [ ] Breaking changes documented with migration guide
+- [ ] Stakeholder sign-off obtained
+- [ ] Doctrine principle alignment explained
+
+### Review Assignments
+Pull requests must be reviewed according to doctrine standards:
+
+- **Minimum Reviewers**: 1 maintainer approval required
+- **Review Categories**:
+  - Technical review for code quality and architecture
+  - Quality review for testing and documentation
+  - Doctrine compliance review for alignment with principles
+
+### Mandatory Status Checks
+All PRs must pass these automated checks before merge:
+
 - [ ] CI/CD pipeline builds successfully
 - [ ] All tests pass (unit, integration, e2e)
-- [ ] Code coverage maintains or improves existing levels
+- [ ] Code coverage maintains or improves existing levels  
 - [ ] Linting and formatting checks pass
 - [ ] Security scans show no new vulnerabilities
+- [ ] Documentation builds without errors
 
-**Human Review Requirements:**
-- **Minimum Reviewers**: 1 maintainer approval required
-- **Review Criteria**:
-  - Code quality and maintainability
-  - Adherence to doctrine principles
-  - Architecture and design decisions
-  - Test coverage and quality
-  - Documentation completeness
+### Approvals Process
+As per doctrine requirements:
 
-**Review Response Guidelines:**
-- **Be Responsive**: Address feedback within 48 hours
-- **Be Collaborative**: Discuss alternative approaches openly
-- **Be Professional**: Maintain respectful, constructive dialogue
-- **Be Educational**: Explain your reasoning and learn from feedback
+1. **Automated Checks**: Must pass all status checks
+2. **Human Review**: Minimum 1 maintainer approval
+3. **Stakeholder Sign-off**: For feature changes affecting user experience
+4. **Doctrine Compliance**: Explicit confirmation of principle alignment
+5. **Merge Requirements**: All comments resolved, branch up-to-date
 
-#### Mandatory Review Steps
+## Issue and PR Templates
 
-1. **Technical Review**
-   - [ ] Code architecture aligns with project patterns
-   - [ ] Performance impact assessed and acceptable
-   - [ ] Edge cases and error conditions handled
+Our repository includes structured templates that enforce doctrine compliance:
 
-2. **Quality Review**
-   - [ ] Tests provide adequate coverage and quality
-   - [ ] Documentation updated and accurate
-   - [ ] User experience considered (for UI changes)
+### Issue Templates
+- **[Bug Report Template](.github/ISSUE_TEMPLATE/bug_report.md)**
+  - Doctrine-relevant sections: Impact assessment, circuit reliability implications
+- **[Feature Request Template](.github/ISSUE_TEMPLATE/feature_request.md)**
+  - Doctrine-relevant sections: Intelligence-first justification, stakeholder analysis
+- **[Documentation Template](.github/ISSUE_TEMPLATE/documentation.md)**
+  - Doctrine-relevant sections: Collaborative excellence impact, knowledge sharing
 
-3. **Doctrine Compliance Review**
-   - [ ] Changes embody Intelligence-First principles
-   - [ ] Circuit Reliability maintained or improved
-   - [ ] Collaborative Excellence demonstrated in code/docs
+### Pull Request Template
+- **[PR Template](.github/pull_request_template.md)**
+  - Doctrine-relevant sections:
+    - Intelligence-First: Data-driven rationale for changes
+    - Circuit Reliability: Impact on system stability and maintainability
+    - Collaborative Excellence: Stakeholder communication and team coordination
+    - Quality Standards: Testing strategy and documentation completeness
 
-### 5. 🚀 **Deploy Phase**
+### Template Usage
+All contributors must:
+- Use appropriate templates for all issues and PRs
+- Complete all doctrine-relevant sections thoroughly
+- Provide evidence-based justifications for changes
+- Document stakeholder engagement and feedback
+- Explain alignment with doctrine principles
 
-#### Merge Requirements (All Must Be Met)
-- [ ] All automated checks passing
-- [ ] All review comments resolved
-- [ ] At least 1 maintainer approval
-- [ ] Branch up-to-date with main branch
-- [ ] No merge conflicts
-- [ ] Documentation updated (if needed)
+## Quality Assurance
 
-#### Post-Merge Actions
-- Monitor deployment and rollback if issues arise
-- Update related issues and close when appropriate
-- Document lessons learned for future reference
+### Code Review Standards
+- Code quality and maintainability assessment
+- Architecture alignment with project patterns
+- Performance impact evaluation
+- Security vulnerability assessment
+- Documentation completeness verification
+- Doctrine principle adherence confirmation
 
-## 🎯 Quality Standards
-
-### Code Standards
-- **Clarity Over Cleverness**: Write code that others can easily understand
-- **Consistency**: Follow established patterns and conventions
-- **Modularity**: Create reusable, testable components
-- **Performance**: Consider scalability and resource usage
-- **Security**: Implement secure coding practices
+### Testing Requirements
+- **Coverage**: Minimum 80% code coverage for new code
+- **Quality**: Meaningful tests, not just coverage targets
+- **Types**: Unit, integration, and e2e tests as appropriate
+- **Reliability**: Tests must be stable and maintainable
+- **Performance**: Test suite must remain fast and efficient
 
 ### Documentation Standards
-- **Completeness**: Document all public APIs and complex logic
-- **Accuracy**: Keep documentation in sync with code changes
-- **Accessibility**: Write for different skill levels
-- **Examples**: Include practical usage examples
-- **Markdown**: Follow consistent formatting standards
+- Complete documentation for all public APIs
+- Accurate and up-to-date with code changes
+- Accessible writing for different skill levels
+- Practical usage examples included
+- Consistent Markdown formatting
 
-### Testing Standards
-- **Coverage**: Aim for >80% code coverage for new code
-- **Quality**: Write meaningful tests, not just coverage targets
-- **Types**: Include unit, integration, and e2e tests as appropriate
-- **Maintainability**: Keep tests simple and focused
-- **Performance**: Ensure test suite remains fast and reliable
+## Support and Resources
 
-## 🚨 Common Pitfalls to Avoid
+For questions about contributing or doctrine compliance:
 
-- **Skipping the Issue**: Always create/reference an issue before coding
-- **Large PRs**: Keep changes focused and reviewable (< 400 lines when possible)
-- **Missing Tests**: New functionality without tests will be rejected
-- **Breaking Changes**: Document and discuss breaking changes in advance
-- **Style Violations**: Run linters locally before pushing
-- **Merge Conflicts**: Keep your branch updated with main branch
+- 📖 [Circuittelligence Doctrine](docs/doctrine.md) - Complete philosophy and guidelines
+- 🤝 [Contributing Guide](CONTRIBUTING.md) - This document
+- 🔧 [Workflows Documentation](docs/workflows.md) - Detailed CI/CD processes
+- 🏗️ [Architecture Guidelines](docs/architecture.md) - System design principles
+- 🐛 [Issue Templates](.github/ISSUE_TEMPLATE) - Structured reporting templates
+- 💬 GitHub Discussions - Community questions and discussions
 
-## 🆘 Getting Help
+## Recognition
 
-### Resources
-- 📖 **[Project Documentation](docs/)** - Architecture and API docs
-- 🔬 **[Circuittelligence Doctrine](docs/doctrine.md)** - Core principles and philosophy
-- 💬 **GitHub Discussions** - Community questions and discussions
-- 🐛 **GitHub Issues** - Bug reports and feature requests
+We value contributors who embody the Circuittelligence doctrine:
+- Contributors listed in project documentation
+- Outstanding contributions highlighted in release notes
+- Consistent contributors invited to maintainer roles
+- Community impact celebrated in project showcases
 
-### Support Channels
-1. **Check Documentation**: Review README and docs/ directory first
-2. **Search Issues**: Look through existing issues and discussions
-3. **Create Issue**: Use appropriate issue template for your question
-4. **Tag Maintainers**: Use `@maintainers` for urgent issues only
+## Final Checklist
 
-### Reporting Security Issues
-**DO NOT** create public issues for security vulnerabilities. Instead:
-- Email security concerns to: [security-contact-placeholder]
-- Include detailed reproduction steps
-- Allow time for assessment and fix before disclosure
-
-## 🎉 Recognition
-
-We value and recognize contributors who embody the Circuittelligence doctrine:
-
-- **Contributors** are listed in project documentation
-- **Outstanding contributions** are highlighted in release notes
-- **Consistent contributors** may be invited to maintainer roles
-- **Community impact** is celebrated in project showcases
-
-## 📋 Contribution Checklist Summary
-
-Before submitting your contribution:
+Before submitting any contribution:
 
 **Pre-Development:**
-- [ ] Issue created and triaged
+- [ ] Issue created using appropriate template
+- [ ] Requirements gathered from stakeholders
+- [ ] Doctrine alignment confirmed
 - [ ] Development environment set up
-- [ ] Branch created with proper naming
 
 **Development:**
 - [ ] Code follows style guide and conventions
 - [ ] Tests written and passing
 - [ ] Documentation updated
 - [ ] Self-review completed
+- [ ] Stakeholder validation obtained
 
 **Submission:**
-- [ ] Pull request created with proper template
+- [ ] Pull request created with complete template
 - [ ] All automated checks passing
+- [ ] Reviewer assignments made
 - [ ] Ready for maintainer review
 
 **Review:**
 - [ ] Responded to feedback promptly
 - [ ] All comments addressed
+- [ ] Doctrine compliance verified
 - [ ] Maintainer approval received
 
 ---
 
-**Remember:** Every contribution, no matter how small, helps build more intelligent, reliable, and collaborative software. Thank you for being part of the Circuittelligence community! 🔬⚡
+*Every contribution, no matter how small, helps build more intelligent, reliable, and collaborative software. Thank you for being part of the Circuittelligence community!* 🔬⚡
