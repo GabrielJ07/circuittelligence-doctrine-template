@@ -1,20 +1,16 @@
 # CI Workflow for Circuittelligence Doctrine Template
 # This workflow enforces code quality, testing, and security standards as per doctrine requirements
 # TODO: Replace placeholder commands with project-specific lint/test commands
-
 name: Continuous Integration
-
 # Trigger on push and pull request events
 on:
   push:
     branches: [ main, develop ]
   pull_request:
     branches: [ main, develop ]
-
 # Environment variables
 env:
   NODE_VERSION: '18'
-
 jobs:
   
   # Secret scanning job to detect hardcoded secrets
@@ -187,3 +183,103 @@ jobs:
       # skipKeywords:               # Skip assignment if PR contains these keywords
       #   - 'wip'
       #   - 'draft'
+
+  # Microsoft Teams notification job for CI status updates
+  teams-notification:
+    name: Microsoft Teams Notification
+    runs-on: ubuntu-latest
+    # Run after all other jobs complete, regardless of their status
+    needs: [secret-scan, dependency-scan, static-analysis, auto_assign_reviewers]
+    if: always()
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      # TODO: Configure Microsoft Teams webhook URL in repository secrets
+      # Steps to set up Teams webhook:
+      # 1. Go to your Circuittelligence Teams channel
+      # 2. Click on the three dots menu (⋯) next to the channel name
+      # 3. Select "Connectors" or "Workflows"
+      # 4. Add "Incoming Webhook" connector
+      # 5. Configure the webhook with a descriptive name like "CI Notifications"
+      # 6. Copy the webhook URL
+      # 7. Add the webhook URL as a repository secret named 'TEAMS_WEBHOOK_URL'
+      # 8. Go to GitHub repo Settings > Secrets and variables > Actions
+      # 9. Add new repository secret: TEAMS_WEBHOOK_URL with the webhook URL value
+      
+      # Send notification on workflow success
+      - name: Send Teams notification on success
+        uses: jdcargile/ms-teams-notification@v1.4
+        if: ${{ needs.secret-scan.result == 'success' && needs.dependency-scan.result == 'success' && needs.static-analysis.result == 'success' }}
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          ms-teams-webhook-uri: ${{ secrets.TEAMS_WEBHOOK_URL }}
+          notification-summary: 'CI Pipeline Successful ✅'
+          notification-color: '28a745'  # Green color for success
+          # TODO: Customize success message content
+          # You can include additional information like:
+          # - Branch name: ${{ github.ref_name }}
+          # - Commit hash: ${{ github.sha }}
+          # - Author: ${{ github.actor }}
+          # - Repository: ${{ github.repository }}
+          # - Workflow run URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          
+      # Send notification on workflow failure
+      - name: Send Teams notification on failure
+        uses: jdcargile/ms-teams-notification@v1.4
+        if: ${{ needs.secret-scan.result == 'failure' || needs.dependency-scan.result == 'failure' || needs.static-analysis.result == 'failure' }}
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          ms-teams-webhook-uri: ${{ secrets.TEAMS_WEBHOOK_URL }}
+          notification-summary: 'CI Pipeline Failed ❌'
+          notification-color: 'dc3545'  # Red color for failure
+          # TODO: Customize failure message content
+          # Consider including:
+          # - Failed job details
+          # - Link to failed workflow run
+          # - Instructions for debugging
+          # - Contact information for support
+          
+      # Send notification on workflow cancellation or other statuses
+      - name: Send Teams notification on other status
+        uses: jdcargile/ms-teams-notification@v1.4
+        if: ${{ contains(needs.*.result, 'cancelled') || contains(needs.*.result, 'skipped') }}
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          ms-teams-webhook-uri: ${{ secrets.TEAMS_webhook_URL }}
+          notification-summary: 'CI Pipeline Status Update ⚠️'
+          notification-color: 'ffc107'  # Yellow color for warning/other status
+          # TODO: Customize notification triggers and conditions
+          # You may want to adjust the conditions based on your team's needs:
+          # - Only notify on failures
+          # - Only notify on main branch
+          # - Only notify during business hours
+          # - Include different message content for different branches
+          # - Add mentions for specific team members on failures
+          
+      # TODO: Advanced Teams notification customization options
+      # Consider implementing these enhancements:
+      # 
+      # 1. Branch-specific notifications:
+      #    - Different webhook URLs for different branches
+      #    - Different notification content for main vs develop
+      #    
+      # 2. Conditional notifications:
+      #    - Only notify on specific events (e.g., failures only)
+      #    - Time-based notifications (e.g., only during business hours)
+      #    
+      # 3. Enhanced message content:
+      #    - Include test coverage reports
+      #    - Add links to deployment environments
+      #    - Include security scan summaries
+      #    
+      # 4. Multiple Teams channels:
+      #    - Developer notifications to one channel
+      #    - Security alerts to security team channel
+      #    - Management updates to leadership channel
+      #    
+      # 5. Message formatting:
+      #    - Use Teams adaptive cards for rich formatting
+      #    - Include action buttons for common tasks
+      #    - Add relevant images or charts
