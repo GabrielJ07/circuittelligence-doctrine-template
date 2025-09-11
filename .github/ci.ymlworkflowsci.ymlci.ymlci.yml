@@ -1,6 +1,7 @@
 # CI Workflow for Circuittelligence Doctrine Template
 # This workflow enforces code quality, testing, and security standards as per doctrine requirements
 # TODO: Replace placeholder commands with project-specific lint/test commands
+
 name: Continuous Integration
 
 # Trigger on push and pull request events
@@ -34,8 +35,114 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
-        # Fail pipeline if secrets are detected
-
+      # Upload scan reports for compliance and audit purposes
+      - name: Upload Gitleaks Scan Reports
+        uses: actions/upload-artifact@v4
+        if: always()  # Upload artifacts even if previous steps fail
+        with:
+          name: gitleaks-scan-reports
+          path: |
+            gitleaks-report.sarif
+            gitleaks-report.json
+            .gitleaks/
+          # TODO: Customize these paths based on your Gitleaks configuration
+          # Common report locations:
+          # - gitleaks-report.sarif (SARIF format for GitHub Security tab)
+          # - gitleaks-report.json (JSON format for detailed analysis)
+          # - .gitleaks/ (directory containing baseline and config files)
+          retention-days: 30
+          
+  # Dependency scanning job to check for vulnerable dependencies
+  dependency-scan:
+    name: Dependency Vulnerability Scanning
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      # TODO: Add dependency scanning steps specific to your project type
+      # Examples:
+      # - For Node.js: npm audit, yarn audit, or Snyk
+      # - For Python: safety, bandit, or pip-audit
+      # - For Java: OWASP Dependency Check
+      # - For .NET: dotnet list package --vulnerable
+      
+      - name: Run Dependency Review
+        uses: actions/dependency-review-action@v4
+        with:
+          fail-on-severity: high
+          
+      # Upload dependency scan reports for compliance and audit purposes
+      - name: Upload Dependency Scan Reports
+        uses: actions/upload-artifact@v4
+        if: always()  # Upload artifacts even if previous steps fail
+        with:
+          name: dependency-scan-reports
+          path: |
+            dependency-review-report.json
+            dependency-check-report.html
+            dependency-check-report.xml
+            npm-audit-report.json
+            safety-report.json
+            snyk-report.json
+          # TODO: Customize these paths based on your dependency scanning tools
+          # Common report locations by tool:
+          # - dependency-review-report.json (GitHub Dependency Review)
+          # - dependency-check-report.html/xml (OWASP Dependency Check)
+          # - npm-audit-report.json (npm audit --json > npm-audit-report.json)
+          # - safety-report.json (safety check --json > safety-report.json)
+          # - snyk-report.json (snyk test --json > snyk-report.json)
+          retention-days: 30
+          
+  # Static analysis job for code quality and security
+  static-analysis:
+    name: Static Code Analysis
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      # TODO: Add static analysis steps specific to your project
+      # Examples:
+      # - CodeQL for security analysis
+      # - SonarCloud for code quality
+      # - ESLint for JavaScript/TypeScript
+      # - Pylint/Flake8 for Python
+      # - SpotBugs for Java
+      
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: javascript  # TODO: Update based on your project languages
+          
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
+        
+      # Upload static analysis reports for compliance and audit purposes
+      - name: Upload Static Analysis Reports
+        uses: actions/upload-artifact@v4
+        if: always()  # Upload artifacts even if previous steps fail
+        with:
+          name: static-analysis-reports
+          path: |
+            codeql-report.sarif
+            sonar-report.json
+            eslint-report.json
+            eslint-report.html
+            pylint-report.txt
+            pylint-report.json
+            spotbugs-report.xml
+          # TODO: Customize these paths based on your static analysis tools
+          # Common report locations by tool:
+          # - codeql-report.sarif (CodeQL SARIF output)
+          # - sonar-report.json (SonarCloud/SonarQube JSON report)
+          # - eslint-report.json/html (ESLint with --format json/html)
+          # - pylint-report.txt/json (Pylint with --output-format text/json)
+          # - spotbugs-report.xml (SpotBugs XML report)
+          retention-days: 30
+  
   # Auto-assign reviewers and assignees to pull requests
   auto_assign_reviewers:
     name: Auto Assign Reviewers
