@@ -116,8 +116,8 @@ This doctrine document covers:
 ## Additional Documentation
 
 - 🤝 [Contributing Guide](CONTRIBUTING.md) - How to contribute to projects using this doctrine
-- 🔧 [Workflows Documentation](docs/workflows.md) - Detailed CI/CD and development workflows
-- 🏗️ [Architecture Guidelines](docs/architecture.md) - System design principles and patterns
+- 🔧 [CI/CD Pipeline Architecture](docs/ci-pipeline-architecture.md) - Comprehensive CI/CD workflows and automation
+- 🏠 [Quasar Tabula Home Network](docs/quasar-tabula-home-network.md) - Complete home network architecture and topology
 - 📋 [Issue Templates](.github/ISSUE_TEMPLATE/) - Structured reporting templates
 
 ## License

@@ -5,10 +5,21 @@ This directory contains the project documentation.
 ## Structure
 
 - **README.md** - This file, provides overview of documentation structure
-- **api/** - API documentation and specifications
-- **guides/** - User and developer guides
-- **architecture/** - System architecture and design documents
-- **deployment/** - Deployment guides and configuration
+- **[doctrine.md](doctrine.md)** - Complete Circuittelligence doctrine and philosophy
+- **[ci-pipeline-architecture.md](ci-pipeline-architecture.md)** - CI/CD pipeline design and workflows
+- **[ci-testing-compliance-playbook.md](ci-testing-compliance-playbook.md)** - Testing and compliance guidelines
+- **[quasar-tabula-home-network.md](quasar-tabula-home-network.md)** - Comprehensive home network architecture (Codename: Quasar Tabula)
+
+## Network Architecture Documentation
+
+The **Quasar Tabula** documentation provides a complete home network topology using Mermaid diagrams, including:
+- Multi-VLAN network segmentation
+- Security infrastructure design
+- IoT device integration strategies
+- Performance specifications and monitoring
+- Implementation and maintenance procedures
+
+This documentation exemplifies the Circuittelligence doctrine approach to intelligent system design and circuit reliability.
 
 ## Getting Started
 
